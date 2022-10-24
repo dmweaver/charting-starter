@@ -3,3 +3,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+#chart {
+  
+  margin: 10px auto;
+}
