@@ -14,7 +14,7 @@ window.loadChart = function (json) {
     plotOptions: {
       bar: {
           horizontal: false,
-          columnWidth: '95%',
+          columnWidth: '92%',
           borderRadius: 9,
           dataLabels: { position: "center" }
       },    
@@ -74,8 +74,8 @@ window.loadChart = function (json) {
       type: "category",
     },
     yaxis: {
-    labels:{style:{fontSize: '14px'}},
-    title:{text:'Area (ha)', style:{fontSize: '18px'}},
+    labels:{style:{fontSize: '18px'}},
+    title:{text:'Area (ha)', style:{fontSize: '20px'}},
     showAlways: true,
     opposite: false,
       axisBorder: {
@@ -89,7 +89,8 @@ window.loadChart = function (json) {
     series: series,
     xaxis: {
       type: "category",
-      title: {text: 'P status', style:{fontSize: '18px'}},
+      labels:{style:{fontSize: '18px'}},
+      title: {text: 'P status', style:{fontSize: '20px'}},
    
     },
   };
