@@ -14,7 +14,7 @@ window.loadChart = function (json) {
     plotOptions: {
       bar: {
           horizontal: false,
-          columnWidth: '92%',
+          columnWidth: '90%',
           borderRadius: 9,
           dataLabels: { position: "center" }
       },    
@@ -30,7 +30,7 @@ window.loadChart = function (json) {
   
     dataLabels: {
       enabled: true,
-      style:{fontSize:'12px'},
+      style:{fontSize:'16px'},
       
       background: { enabled: true, foreColor: "black" },
       // offsetX: 20,
@@ -44,7 +44,7 @@ window.loadChart = function (json) {
       toolbar: { show: false },
       type: type,
       width: 900,
-      height: 700,
+      height: 800,
       zoom: { enabled: false },
       stacked: false,
      
@@ -55,6 +55,20 @@ window.loadChart = function (json) {
         blur: 4,
         opacity: 0.7
       },
+
+      noData: {
+        text: undefined,
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: undefined,
+          fontSize: '14px',
+          fontFamily: undefined
+        }
+      },
+
       events: {
         click: function (event, chartContext, config) {
           console.log("config");
@@ -71,6 +85,8 @@ window.loadChart = function (json) {
         offsetX: 0,
         offsetY: 0
     },
+  
+   
       type: "category",
     },
     yaxis: {
@@ -89,9 +105,21 @@ window.loadChart = function (json) {
     series: series,
     xaxis: {
       type: "category",
-      labels:{style:{fontSize: '18px'}},
-      title: {text: 'P status', style:{fontSize: '20px'}},
-   
+      labels:{rotate: -90,
+        rotateAlways: false, 
+        trim: true, 
+        hideOverlappingLabels: false, 
+        style:{fontSize: '18px'},
+        minHeight: 120,
+        offsetY: 0
+      },
+      // title: {text: 'Phosphorus Status', 
+      //   style:{fontSize: '20px'}, 
+      //   align: 'left', 
+      //   offsetY: -700},
+      //   floating: true
+      // eslint-disable-next-line no-dupe-keys
+      
     },
   };
 
