@@ -43,7 +43,7 @@ window.loadChart = function (json) {
     chart: {
       toolbar: { show: false },
       type: type,
-      width: 900,
+      width: 800,
       height: 800,
       zoom: { enabled: false },
       stacked: false,
