@@ -3,9 +3,22 @@ import { setChartSpecificOptions, handleClick, saveImage } from "./utils";
 let chart;
 window.loadChart = function (json) {
   const obj = JSON.parse(json);
-  const { series, type, callback } = obj;
+  const { series, type, callback, title } = obj;
   console.log(obj);
-  console.log(obj.series);
+  console.log(obj.title);
+
+
+  function replacer(key, value) {
+    if (value === 0) {
+      return null;
+    }
+    return value;
+  }
+  const fixed = JSON.stringify(obj.series, replacer);
+  const fixed2 = JSON.parse(fixed);
+  console.log(fixed2);
+  
+
 
   //GLOBAL OPTIONS!!!!
 
@@ -36,111 +49,126 @@ window.loadChart = function (json) {
       // offsetX: 20,
     },
     chart: {
-      legend: {
-        showForSingleSeries: true,
-        //show: true,
-          position: "top",
+      
+      animations:{enabled: false},
+      toolbar: { show: false },
+      type: type,
+      width: 800,
+      height: 800,
+      zoom: { enabled: false },
+      stacked: false,
+      
+      dropShadow: {
+        enabled: true,
+        top: 0,
+        left: 0,
+        blur: 4,
+        opacity: 0.7
+      },
+      
+      noData: {
+        text: undefined,
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: undefined,
           fontSize: '14px',
-          //customLegendItems: ['L', 'M', 'H', 'VH', 'E'],
-            // markers: {
-            //     fillColors: ['#00E396', '#775DD0']}
-          
+          fontFamily: undefined
+        }
+      },
+      
+      events: {
+        click: function (event, chartContext, config) {
+          console.log("config");
+          handleClick(config, fixed2, callback);
+        },
+      },
+    },
+    
+    xaxis: {
+      axisBorder: {
+        show: true,
+        height: 1,
+        color: '#000000',
+        offsetX: 0,
+        offsetY: 0
+      },
+      
+      
+      type: "category",
+    },
+    yaxis: {
+      labels:{style:{fontSize: '24px'}},
+      title:{text:'Area (ha)', style:{fontSize: '24px'}},
+      showAlways: true,
+      opposite: false,
+      axisBorder: {
+        show: true,
+        color: '#000000',
+        offsetX: 0,
+        offsetY: 0,
+      }}};
+      
+      //OPTIONS FOR XY Charts
+      const dataXYOptions = {
+        series: fixed2,
+        legend: {
+          showForSingleSeries: true,
+          show: true,
+          width: 550,
+          height: 60,
+          position: 'top',
+          horizontalAlign: 'center',
+          offsetX: 120,
+          offsetY: -20,
+          fontSize: '20px',
+          customLegendItems: ['Exceedingly Low', 'Excessively Low', 'Extremely Low', 'Very Very Low', 'Very Low', 'Low', 'Medium', 'High'],
+          markers: {
+            fillColors: ['#007D57', '#628605', '#9FFF6D', '#CA6207', '#FF2C11', '#FF2C11', '#FF2C11', '#FF2C11']},
+            
           },
-          animations:{enabled: false},
-          toolbar: { show: false },
-          type: type,
-          width: 800,
-          height: 800,
-          zoom: { enabled: false },
-          stacked: false,
-          
-          dropShadow: {
-            enabled: true,
-            top: 0,
-            left: 0,
-            blur: 4,
-            opacity: 0.7
-          },
-          
-          noData: {
-            text: undefined,
-            align: 'center',
-            verticalAlign: 'middle',
+        title: {
+          text: title,
+            align: 'middle',
+            margin: 10,
             offsetX: 0,
             offsetY: 0,
+            floating: false,
             style: {
-              color: undefined,
-              fontSize: '14px',
-              fontFamily: undefined
-            }
-          },
-          
-          events: {
-            click: function (event, chartContext, config) {
-              console.log("config");
-              handleClick(config, series, callback);
+              fontSize:  '24px',
+              fontWeight:  'bold',
+              fontFamily:  undefined,
+              color:  'black'
             },
-          },
         },
-        
-        xaxis: {
-          axisBorder: {
-            show: true,
-            height: 1,
-            color: '#000000',
-            offsetX: 0,
-            offsetY: 0
-          },
-          
-          
-          type: "category",
-        },
-        yaxis: {
-          labels:{style:{fontSize: '24px'}},
-          title:{text:'Area (ha)', style:{fontSize: '24px'}},
-          showAlways: true,
-          opposite: false,
-          axisBorder: {
-            show: true,
-            color: '#000000',
-            offsetX: 0,
-            offsetY: 0,
-          }}};
-          
-          //OPTIONS FOR XY Charts
-          const dataXYOptions = {
-            series: series,
-            xaxis: {
-              type: "category",
-              //categories: ['L', 'M', 'H', 'VH', 'E'],
-              labels:{
-                rotate: -90,
-                show: true,
+          xaxis: {
+            type: "category",
+            //categories: ['L', 'M', 'H', 'VH', 'E'],
+            labels:{
+              rotate: -90,
+                show: false,
                 rotateAlways: false, 
-                trim: false, 
+                trim: true, 
                 hideOverlappingLabels: false, 
                 style:{fontSize: '24px'},
                 minHeight: 120,
                 offsetY: 0
               },
-            //   title: {text: 'Phosphorus Status', 
-            //   style:{fontSize: '24px'},
-            // align: 'left', 
-            // offsetY: -770},
-            // floating: true,
-              // eslint-disable-next-line no-dupe-keys
-      
-    },
+              
+            },
+           
   };
 
 
   chart = new ApexCharts(document.querySelector("#chart"), {
     ...options,
-    ...setChartSpecificOptions(dataXYOptions, type, series),
+    ...setChartSpecificOptions(dataXYOptions, type, fixed2),
   });
 
   chart.render();
 };
 
-//function to save the chart back to FIleMaker.
+//function to save the chart back to FileMaker.
 window.saveImage = saveImage;
