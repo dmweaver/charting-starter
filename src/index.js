@@ -4,8 +4,15 @@ let chart;
 window.loadChart = function (json) {
   const obj = JSON.parse(json);
   const { series, type, callback, title } = obj;
-  console.log(obj);
-  console.log(obj.title);
+  // console.log(obj);
+  const newSeries = obj.series;
+  // const fillColor = newSeries.fieldData.fillColor;
+  //const xValues = newSeries.map((element) => {return element.x}) ;
+ 
+
+  // console.log(newSeries);
+  console.log(newSeries);
+
 
 
   function replacer(key, value) {
@@ -16,7 +23,10 @@ window.loadChart = function (json) {
   }
   const fixed = JSON.stringify(obj.series, replacer);
   const fixed2 = JSON.parse(fixed);
-  console.log(fixed2);
+  
+//
+
+ 
   
 
 
