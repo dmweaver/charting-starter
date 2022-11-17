@@ -4,16 +4,16 @@ let chart;
 window.loadChart = function (json) {
   const obj = JSON.parse(json);
   const { series, type, callback, title } = obj;
-  // console.log(obj);
-  const newSeries = obj.series;
-  // const fillColor = newSeries.fieldData.fillColor;
-  //const xValues = newSeries.map((element) => {return element.x}) ;
- 
-
-  // console.log(newSeries);
+  //console.log(obj);
+  //console.log(obj.series[0].data[0].fillColor);
+  const newSeries = obj.series[0].data;
   console.log(newSeries);
-
-
+ 
+  const fillColor = newSeries.map((element) => {return element.fillColor}) ;
+  const xValues = newSeries.map((element) => {return element.x}) ;
+  console.log(fillColor);
+  console.log(xValues);
+ 
 
   function replacer(key, value) {
     if (value === 0) {
@@ -134,9 +134,9 @@ window.loadChart = function (json) {
           offsetX: 120,
           offsetY: -20,
           fontSize: '20px',
-          customLegendItems: ['Exceedingly Low', 'Excessively Low', 'Extremely Low', 'Very Very Low', 'Very Low', 'Low', 'Medium', 'High'],
+          customLegendItems: xValues,
           markers: {
-            fillColors: ['#007D57', '#628605', '#9FFF6D', '#CA6207', '#FF2C11', '#FF2C11', '#FF2C11', '#FF2C11']},
+            fillColors: fillColor},
             
           },
         title: {
