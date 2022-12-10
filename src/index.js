@@ -4,10 +4,11 @@ let chart;
 window.loadChart = function (json) {
   const obj = JSON.parse(json);
   const { series, type, callback, title } = obj;
-  //console.log(obj);
+  console.log(obj);
   //console.log(obj.series[0].data[0].fillColor);
   const newSeries = obj.series[0].data;
   console.log(newSeries);
+  console.log(obj.title);
  
   const fillColor = newSeries.map((element) => {return element.fillColor}) ;
   const xValues = newSeries.map((element) => {return element.x}) ;
@@ -147,7 +148,7 @@ window.loadChart = function (json) {
             offsetY: 0,
             floating: false,
             style: {
-              fontSize:  '24px',
+              fontSize:  '30px',
               fontWeight:  'bold',
               fontFamily:  undefined,
               color:  'black'
@@ -158,7 +159,7 @@ window.loadChart = function (json) {
             //categories: ['L', 'M', 'H', 'VH', 'E'],
             labels:{
               rotate: -90,
-                show: false,
+                show: true,
                 rotateAlways: false, 
                 trim: true, 
                 hideOverlappingLabels: false, 
